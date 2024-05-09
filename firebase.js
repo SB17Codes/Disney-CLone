@@ -1,18 +1,16 @@
-import firebase from "firebase";
+import { initializeApp, getApp, getApps } from "firebase/app";
+import {getFirestore} from "firebase/firestore"
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBOcv_MosppZ3_BdrCH5c74mHiOxCQCxXE",
-  authDomain: "disney-clone-8b143.firebaseapp.com",
-  projectId: "disney-clone-8b143",
-  storageBucket: "disney-clone-8b143.appspot.com",
-  messagingSenderId: "365663382225",
-  appId: "1:365663382225:web:95c474d1ffb40ff4ccf3f0",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-const app = !firebase.apps.length
-  ? firebase.initializeApp(firebaseConfig)
-  : firebase.app();
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+const db = getFirestore();
 
-const db = app.firestore();
-
-export { db };
+export { db, app };

@@ -1,4 +1,4 @@
-import { getSession, useSession } from "next-auth/client";
+import { getProviders, getSession, useSession } from 'next-auth/react';
 import Head from "next/head";
 import Brands from "../components/Brands";
 import Header from "../components/Header";
@@ -13,8 +13,7 @@ export default function Home({
   top_ratedMovies,
   top_ratedShows,
 }) {
-  console.log(popularMovies);
-  const [session] = useSession();
+  const { data: session } = useSession();
   return (
     <div className="">
       <Head>
@@ -43,6 +42,7 @@ export default function Home({
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
+  const providers = await getProviders();
 
   const [
     popularMoviesRes,

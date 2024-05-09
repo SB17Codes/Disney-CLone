@@ -7,10 +7,10 @@ import {
 } from "@heroicons/react/solid";
 
 import { useRouter } from "next/router";
-import { getSession, useSession, signIn, signOut } from "next-auth/client";
+import { getSession, useSession, signIn, signOut } from "next-auth/react";
 
 function Header() {
-  const [session] = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
 
   return (
@@ -61,8 +61,8 @@ function Header() {
         <div className="ml-auto flex space-x-4">
           <img
             className=" h-10 w-10 rounded-full object-cover cursor-pointer"
-            src={session.user.image}
-            alt=""
+            src={session?.user?.image}  
+                      alt=""
           ></img>
           <button
             onClick={signOut}
